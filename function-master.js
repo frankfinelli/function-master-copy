@@ -3,7 +3,13 @@
 //////////////////////////////////////////////////////////////////////
 
 function objectValues(object) {
-    // code
+    let home = [];
+    
+    for (key in object) {
+        home.push(object[key])
+    }
+    
+    return home;
 } 
 
 //////////////////////////////////////////////////////////////////////
@@ -11,7 +17,14 @@ function objectValues(object) {
 //////////////////////////////////////////////////////////////////////
 
 function keysToString(object) {
+    let home = []
 
+    for (key in object) {
+        home.push(key)
+    }
+    
+    //return all ob.keys in a string separated by spaces
+    return home.join(' ')
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -19,7 +32,14 @@ function keysToString(object) {
 //////////////////////////////////////////////////////////////////////
 
 function valuesToString(object) {
+    let home = [];
     
+    for (key in object) {
+        if (typeof object[key] === 'string') {
+            home.push(object[key])
+        }
+    }
+    return home.join(' ');
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -27,7 +47,11 @@ function valuesToString(object) {
 //////////////////////////////////////////////////////////////////////
 
 function arrayOrObject(collection) {
-    
+    if (Array.isArray(collection)) {
+        return 'array'
+    } else {
+        return 'object'
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -35,7 +59,7 @@ function arrayOrObject(collection) {
 //////////////////////////////////////////////////////////////////////
 
 function capitalizeWord(string) {
-    
+    return string[0].toUpperCase() + string.slice(1)
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -43,7 +67,11 @@ function capitalizeWord(string) {
 //////////////////////////////////////////////////////////////////////
 
 function capitalizeAllWords(string) {
-    
+    let home = string.split(' ')
+    for (let x = 0; x < home.length; x++) {
+        home[x] = capitalizeWord(home[x]);
+    }
+    return home.join(' ')
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -51,7 +79,10 @@ function capitalizeAllWords(string) {
 //////////////////////////////////////////////////////////////////////
 
 function welcomeMessage(object) {
-
+    //apparently some names are lowercased
+    if (object.name) {
+        return "Welcome" + " " + capitalizeWord(object.name) + "!";
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -59,7 +90,9 @@ function welcomeMessage(object) {
 //////////////////////////////////////////////////////////////////////
 
 function profileInfo(object) {
-
+    if (object.name && object.species) {
+        return capitalizeWord(object.name) + " " + "is a" + " " + capitalizeWord(object.species)
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -67,7 +100,11 @@ function profileInfo(object) {
 //////////////////////////////////////////////////////////////////////
 
 function maybeNoises(object) {
-
+    if (object.noises && object.noises.length !== 0) {
+        return object.noises.join(' ')
+    } else {
+        return 'there are no noises'
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -75,7 +112,13 @@ function maybeNoises(object) {
 //////////////////////////////////////////////////////////////////////
 
 function hasWord(string, word) {
-
+    let home = string.split(' ')
+    for (let x = 0; x < home.length; x++) {
+        if (home[x] === word) {
+            return true
+        }
+    }
+    return false
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -83,7 +126,8 @@ function hasWord(string, word) {
 //////////////////////////////////////////////////////////////////////
 
 function addFriend (name, object) {
-
+    object.friends.push(name)
+    return object
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -91,7 +135,15 @@ function addFriend (name, object) {
 //////////////////////////////////////////////////////////////////////
 
 function isFriend(name, object) {
-
+    if (!object.friends) {return false}
+    let home = object.friends
+        for (let x = 0; x < home.length ; x++) {
+            if (home[x] === name) {
+                return true
+            }
+        }
+    
+    return false
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -99,7 +151,22 @@ function isFriend(name, object) {
 //////////////////////////////////////////////////////////////////////
 
 function nonFriends(name, array) {
+    let home = [];
 
+    let target = [];
+    for (let x = 0; x < array.length; x++) {
+        if (array[x].name === name) {
+            target = array[x].friends;
+        }
+    }
+
+    for (let x = 0; x < array.length; x++) {
+        if (array[x].name !== name && !target.includes(array[x].name)) {
+            home.push(array[x].name);
+        }
+    }
+
+    return home;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -107,7 +174,8 @@ function nonFriends(name, array) {
 //////////////////////////////////////////////////////////////////////
 
 function updateObject(object, key, value) {
-
+    object[key] = value
+    return object //this exercise did not explicitly ask for returning an object
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -115,7 +183,9 @@ function updateObject(object, key, value) {
 //////////////////////////////////////////////////////////////////////
 
 function removeProperties(object, array) {
-
+    for (let x = 0; x < array.length; x++) {
+            delete object[array[x]]
+        }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -123,7 +193,15 @@ function removeProperties(object, array) {
 //////////////////////////////////////////////////////////////////////
 
 function dedup(array) {
+    let home = []
 
+    for (let x = 0; x < array.length; x++) {
+        if (!home.includes(array[x])) {
+            home.push(array[x])
+        }
+    }
+
+    return home
 }
 
 //////////////////////////////////////////////////////////////////////
